@@ -5,15 +5,12 @@ const MeetingPlaceSchema = new mongoose.Schema ({
     address: String,
     name: String,
     compass_direction: String,
-    owner: {
-        type: String,
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
       }
     },
-    {
-      timestamps: true,
-    }
     
 )
 

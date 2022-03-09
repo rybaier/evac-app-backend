@@ -6,15 +6,15 @@ const EvacGrabItemSchema = new mongoose.Schema(
     name: String,
     location: String,
     instructions: String,
-    owner: {
-        type: String,
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
       }
     },
-    {
-      timestamps: true,
-    }
+    
 )
 
 const EvacGrabItem = mongoose.model('EvacGrabItem', EvacGrabItemSchema)
+
+module.exports = EvacGrabItem

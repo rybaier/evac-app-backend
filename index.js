@@ -6,7 +6,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt')
 const app = express();
 const bodyParser = require('body-parser')
-const requireAuth = require('./middleware/userAuth')
+const userAuth = require('./middleware/userAuth')
 require('./db/connection')
 const PORT = process.env.PORT
 app.set('port', process.env.PORT || 8000);
@@ -31,7 +31,7 @@ app.use(userController);
 //===========
 //ROUTES
 //===========
-app.get('/', requireAuth, (req, res) => {
+app.get('/', userAuth, (req, res) => {
     res.send(`your email: ${req.user.email}`)
 })
 
