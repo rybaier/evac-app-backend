@@ -1,3 +1,4 @@
+require('../models/User')
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
@@ -8,7 +9,7 @@ const router = express.Router();
 router.post("/signup", async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const user = newUser({ email, password });
+    const user = new User({ email, password });
     await user.save();
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
     res.send({ token: token });
@@ -17,11 +18,13 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.post("signin", async (req, res, next) => {
+router.post("/signin", async (req, res, next) => {
   const { email, password } = req.body;
+  console.log( email, password)
   if (!email || !password) {
     return res.status(422).send({ error: "Provide a Valid username and password" });
   }
+  
   const user = await User.findOne({ email });
   if (!user) {
     return res
@@ -31,11 +34,12 @@ router.post("signin", async (req, res, next) => {
       });
   }
   try {
+      console.log(user)
       await user.comparePassword(password)
       const token = jwt.sign({userId: user._id}, process.env.SECRET_KEY)
       res.send(token)
   } catch (err) {
-    return res.status(422).send({ error: "Invalid username and password" });
+    return res.status(422).send(err.message);
   }
 });
 

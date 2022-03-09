@@ -46,10 +46,10 @@ UserSchema.pre('save', function(next){
     })
 })
 //compare passswords for authentication use
-UserSchema.methods.comparePassword = function(candidatePasswork) {
+UserSchema.methods.comparePassword = function(candidatePassword) {
     const user = this
     return new Promise((resolve, reject) => {
-        bcrypt.compare(comparePassword, user.password, (err, isMatch) => {
+        bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
             if (err) {
                 return reject(err)
             }
