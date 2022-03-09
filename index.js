@@ -25,13 +25,13 @@ app.use(cors())
 //===========
 
 
-const userController = require('./controllers/userController');
-app.use(userController);
+// const userController = require('./controllers/userController');
+// app.use(userController);
 
 //===========
 //ROUTES
 //===========
-app.get('/', requireAuth, (req, res) => {
+app.get('/', (req, res) => {
     res.send(`your email: ${req.user.email}`)
 })
 

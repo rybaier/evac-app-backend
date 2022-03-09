@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
+
 const router = express.Router();
 
 router.post("/signup", async (req, res, next) => {
@@ -19,9 +20,7 @@ router.post("/signup", async (req, res, next) => {
 router.post("signin", async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res
-      .status(422)
-      .send({ error: "Provide a Valid username and password" });
+    return res.status(422).send({ error: "Provide a Valid username and password" });
   }
   const user = await User.findOne({ email });
   if (!user) {
