@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const EvacGrabItemSchema = new mongoose.Schema(
     {
-    priotity: Number,
+    priority: Number,
     name: String,
     location: String,
     instructions: String,

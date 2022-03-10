@@ -37,7 +37,7 @@ router.post("/signin", async (req, res, next) => {
       console.log(user)
       await user.comparePassword(password)
       const token = jwt.sign({userId: user._id}, process.env.SECRET_KEY)
-      res.send(token)
+      res.send({token: token})
   } catch (err) {
     return res.status(422).send(err.message);
   }

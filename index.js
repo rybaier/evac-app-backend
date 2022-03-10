@@ -23,7 +23,11 @@ app.use(cors())
 //===========
 //CONTROLLERS
 //===========
+const evacGrabItemController = require('./controllers/evacGrabItemContoller')
+app.use(evacGrabItemController)
 
+const meetingPlaceController = require('./controllers/meetingPlaceController')
+app.use(meetingPlaceController)
 
 const userController = require('./controllers/userController');
 app.use(userController);

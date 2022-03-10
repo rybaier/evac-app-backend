@@ -1,0 +1,8 @@
+[
+    {
+        "priority": 1,
+        "name": "thing",
+        "location": "house",
+        "instructions": "inside house go grab the thing"
+    }
+]

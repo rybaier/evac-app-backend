@@ -8,8 +8,12 @@ const router = express.Router()
 router.use(userAuth)
 
 router.get('/meetingplaces', async (req, res, next) => {
-    const meetingPlaces = await MeetingPlace.find({ userID: req.user._id })
-    res.send(meetingPlaces)
+    try {
+        const meetingPlaces = await MeetingPlace.find({ userID: req.user._id })
+        res.json(meetingPlaces)
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 router.post('/meetingplaces', async ( req, res, next) => {
@@ -20,6 +24,7 @@ router.post('/meetingplaces', async ( req, res, next) => {
     try {
         const meetingPlace = new MeetingPlace({ name, address, compass_direction, userID: req.user._id})
         await meetingPlace.save()
+        res.send(meetingPlace)
     } catch (err) {
         res.status(402).send(err.message)
     }
@@ -38,7 +43,7 @@ router.put('/meetingplaces/:id', async (req,res, next) => {
     try {
         const changeMeetingPlace = await MeetingPlace.findByIdAndUpdate(
             req.params.id, req.body, {new:true})
-            res.status(200).json(changeMeetingPlace)
+            res.status(200).send(changeMeetingPlace)
     } catch (err) {
         next(err)
     }
@@ -46,7 +51,7 @@ router.put('/meetingplaces/:id', async (req,res, next) => {
 
 router.delete('/meetingplaces/:id', async (req,res, next) => {
     try {
-        const deleteMeetingPlace = await MeetingPlace.findById(req.params.id)
+        const deleteMeetingPlace = await MeetingPlace.findByIdAndDelete(req.params.id)
         if(deleteMeetingPlace){
             res.sendStatus(204)
         } else{
